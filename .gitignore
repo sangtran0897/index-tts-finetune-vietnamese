@@ -37,7 +37,7 @@ hf_cache/
 *trained_ckpts*
 prompts/
 *.whl
-checkpoints/
+
 *.pth
 *.pt
 *.bin
