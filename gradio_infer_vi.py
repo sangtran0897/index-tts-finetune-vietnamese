@@ -39,12 +39,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--gpt-checkpoint",
-        default="runs/vietnamese_from_metadata/gpt_finetune_vi/latest.pth",
+        default="checkpoints/gpt.pth",
         help="Fine-tuned GPT checkpoint to use.",
     )
     parser.add_argument(
         "--tokenizer",
-        default="runs/vietnamese_from_metadata/tokenizer/vi_bpe.model",
+        default="checkpoints/bpe.model",
         help="SentencePiece tokenizer path.",
     )
     parser.add_argument(
