@@ -792,20 +792,20 @@ def main() -> None:
                         recent_checkpoints,
                         extra=checkpoint_extra("step"),
                     )
-                    torch.save(
-                        {
-                            "model": model.state_dict(),
-                            "optimizer": optimizer.state_dict(),
-                            "scheduler": scheduler.state_dict(),
-                            "scaler": scaler.state_dict() if scaler else None,
-                            "epoch": epoch,
-                            "step": global_step,
-                            "recent_checkpoints": recent_checkpoints,
-                            "manifests": manifest_metadata,
-                        },
-                        output_dir / "latest.pth",
-                    )
-                    while len(recent_checkpoints) > 3:
+                    # torch.save(
+                    #     {
+                    #         "model": model.state_dict(),
+                    #         "optimizer": optimizer.state_dict(),
+                    #         "scheduler": scheduler.state_dict(),
+                    #         "scaler": scaler.state_dict() if scaler else None,
+                    #         "epoch": epoch,
+                    #         "step": global_step,
+                    #         "recent_checkpoints": recent_checkpoints,
+                    #         "manifests": manifest_metadata,
+                    #     },
+                    #     output_dir / "latest.pth",
+                    # )
+                    while len(recent_checkpoints) > 1:
                         obsolete = recent_checkpoints.pop(0)
                         try:
                             os.remove(obsolete)
@@ -869,7 +869,7 @@ def main() -> None:
         #     },
         #     output_dir / "latest.pth",
         # )
-        while len(recent_checkpoints) > 3:
+        while len(recent_checkpoints) > 1:
             obsolete = recent_checkpoints.pop(0)
             try:
                 os.remove(obsolete)
