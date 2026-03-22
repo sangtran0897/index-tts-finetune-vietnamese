@@ -778,40 +778,40 @@ def main() -> None:
                     if val_metrics["mel_loss"] < best_val:
                         best_val = val_metrics["mel_loss"]
 
-                if global_step % save_every == 0:
-                    ckpt_path = output_dir / f"model_step{global_step}.pth"
-                    recent_checkpoints.append(str(ckpt_path))
-                    save_checkpoint(
-                        ckpt_path,
-                        model,
-                        optimizer,
-                        scheduler,
-                        scaler,
-                        epoch,
-                        global_step,
-                        recent_checkpoints,
-                        extra=checkpoint_extra("step"),
-                    )
-                    # torch.save(
-                    #     {
-                    #         "model": model.state_dict(),
-                    #         "optimizer": optimizer.state_dict(),
-                    #         "scheduler": scheduler.state_dict(),
-                    #         "scaler": scaler.state_dict() if scaler else None,
-                    #         "epoch": epoch,
-                    #         "step": global_step,
-                    #         "recent_checkpoints": recent_checkpoints,
-                    #         "manifests": manifest_metadata,
-                    #     },
-                    #     output_dir / "latest.pth",
-                    # )
-                    while len(recent_checkpoints) > 1:
-                        obsolete = recent_checkpoints.pop(0)
-                        try:
-                            os.remove(obsolete)
-                        except OSError:
-                            pass
-                    last_saved_step = global_step
+                # if global_step % save_every == 0:
+                #     ckpt_path = output_dir / f"model_step{global_step}.pth"
+                #     recent_checkpoints.append(str(ckpt_path))
+                #     save_checkpoint(
+                #         ckpt_path,
+                #         model,
+                #         optimizer,
+                #         scheduler,
+                #         scaler,
+                #         epoch,
+                #         global_step,
+                #         recent_checkpoints,
+                #         extra=checkpoint_extra("step"),
+                #     )
+                #     # torch.save(
+                #     #     {
+                #     #         "model": model.state_dict(),
+                #     #         "optimizer": optimizer.state_dict(),
+                #     #         "scheduler": scheduler.state_dict(),
+                #     #         "scaler": scaler.state_dict() if scaler else None,
+                #     #         "epoch": epoch,
+                #     #         "step": global_step,
+                #     #         "recent_checkpoints": recent_checkpoints,
+                #     #         "manifests": manifest_metadata,
+                #     #     },
+                #     #     output_dir / "latest.pth",
+                #     # )
+                #     while len(recent_checkpoints) > 1:
+                #         obsolete = recent_checkpoints.pop(0)
+                #         try:
+                #             os.remove(obsolete)
+                #         except OSError:
+                #             pass
+                #     last_saved_step = global_step
 
                 if args.max_steps and global_step >= args.max_steps:
                     break
